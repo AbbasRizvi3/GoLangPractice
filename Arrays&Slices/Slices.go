@@ -1,0 +1,29 @@
+package main
+
+import "fmt"
+
+func main() {
+	// slices are part of arrays. they share the same underlying memory so a change in either of the values reflect changes on both sides
+
+	// there are slices of an array and not slices itself
+	array := [5]int{1, 2, 3, 4, 5}
+	sliced_array := array[2:]
+
+	fmt.Printf("%d\n", array)
+	fmt.Printf("%d\n", sliced_array)
+
+	sliced_array[2] = 99
+	array[0] = 45
+
+	fmt.Printf("%d\n", array)
+	fmt.Printf("%d\n", sliced_array)
+
+	//Slices
+
+	slice_array := []int{1, 2, 3, 4, 5}
+	//slice_array2:=make([]int,3,5) makes an array of size 3 and max size(flexibility) of 5
+
+	slice_array = append(slice_array, 66)
+	fmt.Printf("%d\n", slice_array)
+
+}

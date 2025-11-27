@@ -73,42 +73,84 @@ func main() {
 		z = 7
 	)
 	fmt.Print(x, y, z)
-
+	const tempoo = 5
+	const (
+		Feeehu  = 5
+		Abbas   = 6
+		Mamoona = 7
+		Roha    = 8
+	)
 	fmt.Print("\n")
-	const temp2 = iota
-	fmt.Print(temp2)
+	fmt.Print(Feeehu, Abbas, Mamoona, Roha)
+
 	fmt.Print("\n")
 
 	const (
-		Sunday = iota
-		Monday
-		Tuesday
-		Wednesday
-		Thursday
-		Friday
-		Saturday
+		Feeehuu = "snake"
+		Abbass
+		Mamoonaaa
+		Rohaaa
 	)
 
-	fmt.Print(Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)
-	fmt.Print("\n")
+	fmt.Printf("%s %s %s %s", Feeehuu, Abbass, Mamoonaaa, Rohaaa)
+	print("\n")
 
-	const (
-		KB = 1 << (iota * 10)
-		MB
-		GB
-	)
-	fmt.Print(KB, MB, GB)
-	fmt.Print("\n")
+	// fmt.Print("\n")
+	// const temp2 = iota
+	// fmt.Print(temp2)
+	// fmt.Print("\n")
 
-	const (
-		offset = 2*iota + 1
-		_
-		value
-		_
-		result
-	)
+	// const (
+	// 	Sunday = iota
+	// 	Monday
+	// 	Tuesday
+	// 	Wednesday
+	// 	Thursday
+	// 	Friday
+	// 	Saturday
+	// )
 
-	fmt.Print(offset, value, result)
-	fmt.Print("\n")
+	// fmt.Print(Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)
+	// fmt.Print("\n")
+
+	// const (
+	// 	KB = 1 << (iota * 10)
+	// 	MB
+	// 	GB
+	// )
+	// fmt.Print(KB, MB, GB)
+	// fmt.Print("\n")
+
+	// const (
+	// 	offset = 2*iota + 1
+	// 	_
+	// 	value
+	// 	_
+	// 	result
+	// )
+
+	// fmt.Print(offset, value, result)
+	// fmt.Print("\n")
+
+	test := 10
+	if true {
+		test = 15
+		fmt.Printf("%d", test)
+	}
+	fmt.Printf("\n")
+	fmt.Printf("%d", test)
+
+	fmt.Printf("\n")
+	var charact rune = '4'
+	fmt.Printf("%c\n", charact)
+
+	s := "a\nb\nc"
+	fmt.Printf("%q", s)
+
+	var s2 string = "fareeha snake hai"
+	fmt.Printf("\n")
+	fmt.Printf("%d\n", len(s2))
+
+	// %d is used for int, %s for strings, %v for raw, %q for adding quotationg, %c for rune/character, and %x for hexa values
 
 }
