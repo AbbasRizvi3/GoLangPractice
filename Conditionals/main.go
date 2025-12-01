@@ -85,4 +85,25 @@ func main() {
 		print("\n")
 	}
 
+	// can initialize bfr writing the condition. The initialized variable is available in if and all else branches only
+	if x := 9; x < 15 {
+		print("true")
+	} else {
+		print("false")
+	}
+
+	fmt.Printf("\n")
+	var user_input int
+	fmt.Scanf("%d", &user_input)
+	switch user_input {
+	case 1:
+		fmt.Print("1")
+	case 2:
+		fmt.Print("2")
+	default:
+		fmt.Print("0")
+	}
+
+	//we can use fallthrough to also execute the next statement only too if a match is found
+
 }

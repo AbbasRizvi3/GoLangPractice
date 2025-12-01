@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"unicode/utf8"
 
 	"rsc.io/quote"
 ) //external library, use go add . to download all dependencies or go add <dependency-name>
@@ -151,6 +152,14 @@ func main() {
 	fmt.Printf("\n")
 	fmt.Printf("%d\n", len(s2))
 
-	// %d is used for int, %s for strings, %v for raw, %q for adding quotationg, %c for rune/character, and %x for hexa values
+	// %d is used for int, %s for strings, %v for raw, %q for adding quotationg, %c for rune/character, and %x for hexa value
+
+	var agee int = 30
+	var string_age string = strconv.Itoa(agee)
+	fmt.Printf("%s\n", string_age)
+
+	sample_str := "hello 你好"
+	fmt.Printf("%d\n", utf8.RuneCountInString(sample_str))
+	// simple len counts the number of bytes but string contains unicode and so can mismatch the calculations
 
 }

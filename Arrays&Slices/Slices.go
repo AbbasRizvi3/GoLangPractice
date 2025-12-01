@@ -26,4 +26,15 @@ func main() {
 	slice_array = append(slice_array, 66)
 	fmt.Printf("%d\n", slice_array)
 
+	arrayyy := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
+	sliced_arrayyy := arrayyy[:5]
+	fmt.Printf("%d\n", sliced_arrayyy)
+
+	// add an element at a specific index
+	arrayyy = append(arrayyy[:5], append([]int{99}, arrayyy[5:]...)...)
+	fmt.Printf("%d\n", arrayyy)
+
+	//removing an element at a specific index
+	arrayyy = append(arrayyy[:5], arrayyy[6:]...)
+	fmt.Printf("%d\n", arrayyy)
 }
