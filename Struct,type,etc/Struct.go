@@ -30,6 +30,10 @@ func (c Person) getAge() int {
 	return c.age
 }
 
+func (c *Person) setAge(agee int) {
+	c.age = agee
+}
+
 // pass by ref to modify original value
 func (c *Person) setBlock(blk string) {
 	c.Address.Block = blk
@@ -102,4 +106,27 @@ func main() {
 		street: "gbff",
 	}
 	fmt.Printf("%s, %s", adr.Block, adr.street)
+
+	pp1 := Person{
+		Name: "person1",
+		age:  23,
+		Address: Address{
+			Block:  "dasda",
+			street: "faswa",
+		},
+	}
+
+	pp2 := Person{
+		Name: "person2",
+		age:  23,
+		Address: Address{
+			Block:  "dasda",
+			street: "faswa",
+		},
+	}
+
+	pp1.setAge(1)
+	pp2.setAge(2)
+	fmt.Printf("%d\n", pp1.age)
+	fmt.Printf("%d\n", pp2.age)
 }
