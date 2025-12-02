@@ -2,10 +2,16 @@ package main
 
 import "fmt"
 
+func ModifySlice(array []int) {
+	array = append(array, 9)
+}
+
 func main() {
 	// slices are part of arrays. they share the same underlying memory so a change in either of the values reflect changes on both sides
 
 	// there are slices of an array and not slices itself
+
+	//slices are pass by ref by default but may result in pass by value in some cases
 	array := [5]int{1, 2, 3, 4, 5}
 	sliced_array := array[2:]
 
@@ -37,4 +43,9 @@ func main() {
 	//removing an element at a specific index
 	arrayyy = append(arrayyy[:5], arrayyy[6:]...)
 	fmt.Printf("%d\n", arrayyy)
+
+	temp_slice := make([]int, 5)
+	ModifySlice(temp_slice)
+	fmt.Printf("%d\n", temp_slice)
+
 }

@@ -2,9 +2,15 @@ package main
 
 import "fmt"
 
+func modifyArray(array [5]int) [5]int {
+	array[0] = 3
+	return array
+}
+
 func main() {
 	//delclaring the array only
 	// var arr2 [10]int
+	//arrays are pass by value by default
 
 	//declaring and initializing
 	var arr = [10]int{1, 2, 3, 4}
@@ -27,4 +33,7 @@ func main() {
 	fmt.Print("%d\n", functional_array[1](5))
 	fmt.Printf("\n")
 
+	temparray := [5]int{1, 2, 3, 4, 5}
+	modifyArray(temparray)
+	fmt.Printf("%d\n", temparray)
 }
