@@ -7,10 +7,35 @@ type Address struct {
 	street string
 }
 
+func (a Address) getAddress() (string, string) {
+	return a.Block, a.street
+}
+
 type Person struct {
 	Name    string
 	age     int
 	Address Address
+}
+
+type Address2 struct {
+	Block  string
+	street string
+}
+
+func (a Address2) getAddress() (string, string) {
+	fmt.Print("address")
+	return a.Block, a.street
+}
+
+type Person2 struct {
+	Name string
+	age  int
+	Address
+}
+
+func (p Person2) getAddress() (string, string) {
+	fmt.Print("person")
+	return p.street, p.Block
 }
 
 // composition
@@ -57,6 +82,8 @@ func (h human1) getName() string {
 func (h human1) getAge() int {
 	return h.age
 }
+
+// embedding in structs kindof act like inheritance but not really
 
 func main() {
 	person := Person{
@@ -129,4 +156,31 @@ func main() {
 	pp2.setAge(2)
 	fmt.Printf("%d\n", pp1.age)
 	fmt.Printf("%d\n", pp2.age)
+
+	// test_person := Person{
+	// 	Name: "test_person",
+	// 	age:  23,
+	// 	Address: Address{
+	// 		Block:  "dasda",
+	// 		street: "faswa",
+	// 	},
+	// }
+	// test_person.Address.street
+	// test_person.Address.Block
+	// test_person.Address.getAddress() // in case of compostion (has a)
+
+	// when embedded (is a) acts like inheritance method overriding etc
+
+	test_person2 := Person2{
+		Name: "test_person2",
+		age:  23,
+		Address: Address{
+			Block:  "dasda",
+			street: "faswa",
+		},
+	}
+
+	// test_person2.Address
+	test_person2.getAddress() // here the method was overridden
+
 }
