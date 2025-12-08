@@ -111,15 +111,15 @@ func main() { // is already on a goroutine by default
 	print("------------------------------------------------")
 	print("\n")
 
-	// wg.Add(1000)
-	// for i := 0; i < 1000; i++ {
-	// 	go func() {
-	// 		defer wg.Done()
-	// 		incrTemp()
-	// 		garbage := readTemp()
-	// 		fmt.Printf("Temp: %d\n", garbage)
-	// 	}()
-	// }
+	wg.Add(1000)
+	for i := 0; i < 1000; i++ {
+		go func() {
+			defer wg.Done()
+			incrTemp()
+			garbage := readTemp()
+			fmt.Printf("Temp: %d\n", garbage)
+		}()
+	}
 
 	wg.Wait()
 
