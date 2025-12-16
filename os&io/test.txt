@@ -1,0 +1,5 @@
+hey
+hello
+how are yoi
+this is being written directly into test.txt
+hey

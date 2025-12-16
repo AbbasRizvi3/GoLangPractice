@@ -37,7 +37,6 @@ func main() {
 	println(float1)
 	var float2 float32 = float32(float1)
 	println(float2)
-
 	//floating numbers
 	var complex_number complex128 = complex(10, 12)
 	fmt.Printf("the complex number is: %v\n", complex_number)

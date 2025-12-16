@@ -171,4 +171,10 @@ func main() {
 
 	temp := new(int)
 	fmt.Println(*temp)
+
+	println("--------------------------------")
+	var tem interface{}
+	tem = 4
+	fmt.Println(tem)
+
 }
