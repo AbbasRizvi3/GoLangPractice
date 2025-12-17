@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,6 +13,11 @@ type album struct {
 	Price  float64 `json:"price"`
 }
 
+type User struct {
+	Name  string
+	Email string
+}
+
 var albums = []album{
 	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
 	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
@@ -21,26 +25,34 @@ var albums = []album{
 }
 
 func getAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, gin.H{
-		"albums": albums,
-		"query":  c.Query("name"),
+	var results []album
+	id := c.Param("id")
+	for _, val := range albums {
+		if val.ID == id || id == "" {
+			results = append(results, val)
+		}
+	}
+	c.JSON(200, gin.H{
+		"result": results,
 	})
-
 }
+
 func postAlbums(c *gin.Context) {
 	var newAlbum album
-
-	// Call BindJSON to bind the received JSON to
-	// newAlbum.
-	if err := c.BindJSON(&newAlbum); err != nil {
+	err := c.BindJSON(&newAlbum)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": err,
+		})
 		return
 	}
-
-	// Add the new album to the slice.
 	albums = append(albums, newAlbum)
-	c.IndentedJSON(http.StatusCreated, newAlbum)
+	c.JSON(201, gin.H{
+		"result": albums,
+	})
 }
 func showDashboard(c *gin.Context) {
+	fmt.Print("Inside Dashboard")
 	fmt.Fprintf(c.Writer, "The request type is: %v\n", c.Request.Method)
 	fmt.Fprintf(c.Writer, "Welcome")
 }
@@ -50,12 +62,51 @@ func samplePath(c *gin.Context) {
 
 }
 
+func middleWare1() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Print("Inside Middleware 1")
+		c.Next()
+		fmt.Print("exiting middle ware 1")
+	}
+}
+
+func middleWare2() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Print("Inside Middleware 2")
+		c.Next()
+		fmt.Print("exiting middle ware 2")
+	}
+}
+
+func middleWare3() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Print("Inside Middleware 3")
+		c.Next()
+		fmt.Print("exiting middle ware 3")
+	}
+}
+
+func getUser(c *gin.Context) {
+	user := User{
+		Name:  "feehu",
+		Email: "snake.com",
+	}
+	c.HTML(200, "page.html", user)
+}
+
 func main() {
 	router := gin.Default()
-	router.GET("/", showDashboard)
-	router.GET("/albums", getAlbums)
-	router.GET("/samplePath/:id", samplePath)
-	router.POST("/albums", postAlbums)
+	router.GET("/", middleWare1(), middleWare2(), showDashboard)
+	custom := router.Group("/albums")
+	custom.Use(middleWare3())
+
+	custom.GET("", getAlbums)
+	custom.GET("/samplePath/:id", samplePath)
+	custom.POST("", postAlbums)
+	router.StaticFile("/image", "../Public/download.jpeg")
+
+	router.LoadHTMLGlob("Templates/*")
+	router.GET("/getUser", getUser)
 
 	router.Run("localhost:8080")
 }
