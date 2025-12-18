@@ -3,34 +3,102 @@ package main
 import (
 	"fmt"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
+type Subscription struct {
+	Sub string
+}
 type User struct {
-	ID    uint `gorm:"primaryKey"`
-	Name  string
-	Email string `gorm:"unique"`
-	Age   int
+	gorm.Model
+	Name         string
+	Age          int
+	MemberNumber *string
+	Subscription Subscription `gorm:"type:json;serializer:json"`
+}
+
+func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
+	fmt.Print("before create")
+	return
+}
+
+func (u *User) AfterCreate(tx *gorm.DB) (err error) {
+	fmt.Print("after create")
+	return
+}
+
+type User2 struct {
+	gorm.Model
+	Name         string
+	Age          int
+	MemberNumber *string
+	Subscription Subscription `gorm:"embedded"`
 }
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	dsn := "gormuser:password123@tcp(127.0.0.1:3306)/gorm_example?charset=utf8mb4&parseTime=True&loc=Local"
+
+	// Step 3: Connect to the database
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database")
+		panic("Failed to connect to database!")
 	}
-	fmt.Println("DB connected successfully")
-	fmt.Print(db)
 
-	db.AutoMigrate(&User{})
+	fmt.Println("Connected to database successfully!")
 
-	user := User{
-		Name:  "Abbas",
-		Email: "123@gmail.com",
-		Age:   23,
+	// Step 4: Auto-migrate the User model (creates table if not exists)
+	err = db.AutoMigrate(&User{})
+	if err != nil {
+		panic("Failed to migrate database!")
 	}
-	db.Create(&user)
-	var user2 User
-	db.First(&user2, 1)
-	fmt.Print(user2)
+	db.AutoMigrate(&User2{})
+
+	fmt.Println("Table migrated successfully!")
+
+	// user := User{
+	// 	Name:         "Abbas",
+	// 	Age:          23,
+	// 	MemberNumber: nil,
+	// 	Subscription: Subscription{
+	// 		Sub: "Normal",
+	// 	},
+	// }
+
+	// result := db.Create(&user)
+	// if result.Error != nil {
+	// 	fmt.Println("Error:", result.Error)
+	// } else {
+	// 	fmt.Println("Inserted user ID:", user.ID)
+	// }
+
+	// var temp User
+	// db.First(&temp, 1)
+	// fmt.Printf("%+v\n", temp)
+	// fmt.Print(temp.ID)
+
+	// user2 := User{
+	// 	Name:         "feeehu",
+	// 	Age:          22,
+	// 	MemberNumber: nil,
+	// 	Subscription: Subscription{
+	// 		Sub: "normal",
+	// 	},
+	// }
+	// db.Create(&user2)
+
+	var users []User
+	db.Find(&users)
+
+	for _, u := range users {
+		fmt.Printf("ID: %d, Name: %s, Age: %d, Subscription: %v\n", u.ID, u.Name, u.Age, u.Subscription)
+	}
+
+	// var temp User2
+	// db.First(&temp, 3)
+	// fmt.Printf("%v\n", temp)
+	var tempp []User
+	db.Where("id=?", 4).Find(&tempp)
+	fmt.Printf("%v\n", tempp)
+
 }
