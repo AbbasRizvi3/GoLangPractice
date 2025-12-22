@@ -83,6 +83,14 @@ import (
 
 // const garbage = 3
 
+func DoSomething() {
+	fmt.Println("hello")
+}
+
+func do_something_bad() { // <- bad naming style (snake_case)
+	fmt.Println("bad")
+}
+
 func main() {
 	// arr := [10]int{1, 2, 3, 4, 5}
 	// // var arr2 [10]int
@@ -176,5 +184,15 @@ func main() {
 	var tem interface{}
 	tem = 4
 	fmt.Println(tem)
+
+	fmt.Printf("%d\n", "hey")
+	ttst := "abbas"
+	ttst2 := "feeehu"
+	fmt.Printf("This is %s\n", ttst, ttst2)
+
+	test()
+
+	string := "sdad"
+	fmt.Print(string)
 
 }
